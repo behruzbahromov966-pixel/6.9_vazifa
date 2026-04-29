@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for new in news %}
+    <div class="col">
+        <div class="card h-100">
+            {% if new.image %}
+            <img src="{{ new.image.url }}" class="card-img-top" alt="...">
+            {% else %}
+            <img src="data:image/jpeg;base64,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"
+                 class="card-img-top" alt="...">
+            {% endif %}
+            <div class="card-body">
+                <a href="{% url 'detail' new.id %}">
+                    <h5 class="card-title">{{ new.title }}</h5>
+                </a>
+                <p class="card-text">{{ new.text }}</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">{{ new.created }}</small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
