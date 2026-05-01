@@ -19,7 +19,7 @@
         <div class="col-3">
             <div class="list-group">
                 {% for category in categories %}
-                <a href="{% url 'new_by_category' category.id %}" class="list-group-item list-group-item-action">{{ category.name }}</a>
+                    <a href="{% url 'new_by_category' category.id %}" class="list-group-item list-group-item-action">{{ category.name }}</a>
                 {% endfor %}
             </div>
         </div>

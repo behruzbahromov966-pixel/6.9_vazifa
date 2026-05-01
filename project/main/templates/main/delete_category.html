@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<p>{{ category.name }}</p><p>Siz haqiqatdan ham shu categoryni o'chirmoqchimisiz?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Ha</button>
+</form>
+<a href="{% url 'home' %}" class="btn btn-success">Ortga</a>
+{% endblock main %}

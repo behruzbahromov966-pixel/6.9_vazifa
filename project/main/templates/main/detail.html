@@ -19,6 +19,19 @@
             <div class="card-footer">
                 <small class="text-muted">{{ new.created }}</small>
             </div>
+            {% if request.user.is_staff %}
+            <div>
+                <a href="{% url 'update_new' new.id %}" class="btn btn-success">Update</a>
+                <a href="{% url 'delete_new' new.id%}" class="btn btn-danger">Delete</a>
+            </div>
+            {% endif %}
+            <div class="card-footer">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-primary">Comment</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
