@@ -4,6 +4,12 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button>Save</button>
+    <button>
+        {% if '/update/' in request.path %}
+        Update
+        {% else %}
+        Save
+        {% endif %}
+    </button>
 </form>
 {% endblock main %}

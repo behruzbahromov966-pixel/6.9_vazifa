@@ -39,14 +39,47 @@ def new_by_category(request: HttpRequest, category_id):
     return render(request, 'main/index.html', context)
 
 def add_new(request: HttpRequest):
-    if request.method == 'POST':
-        form = NewForm(data=request.POST, files=request.FILES)
-        if form.is_valid():
-            new = form.save()
-            return redirect('detail', new_id=new.pk)
-    form = NewForm()
-    context = {
-        'form': form
-    }
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = NewForm(data=request.POST, files=request.FILES)
+            if form.is_valid():
+                new = form.save()
+                return redirect('detail', new_id=new.pk)
+        form = NewForm()
+        context = {
+            'form': form
+        }
 
-    return render(request, 'main/add_news.html', context)
+        return render(request, 'main/add_news.html', context)
+    else:
+        redirect('home')
+
+def update_new(request: HttpRequest, new_id):
+    if request.user.is_authenticated:
+        new = New.objects.get(id = new_id)
+        if request.method == 'POST':
+            form = NewForm(data=request.POST, files=request.FILES, instance=new)
+            if form.is_valid():
+                form.save()
+                return  redirect('detail', new_id=new.pk)
+        form = NewForm(instance=new)
+        context = {
+            'form': form
+        }
+
+        return render(request, 'main/add_news.html', context)
+    else:
+        redirect('home')
+
+def delete_new(request: HttpRequest, new_id):
+    if request.user.is_authenticated:
+        new = New.objects.get(id=new_id)
+        if request.method == 'POST':
+            new.delete()
+            return redirect('home')
+        context = {
+            'new': new
+        }
+        return render(request, 'main/conform_delete.html', context)
+    else:
+        redirect('home')

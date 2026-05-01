@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<p>{{ new.title }}</p><p>Siz haqiqatdan ham shu yangilikni o'chirmoqchimisiz?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Ha</button>
+</form>
+<a href="{% url 'detail' new.id%}" class="btn btn-success">Ortga</a>
+{% endblock main %}
